@@ -1,28 +1,29 @@
 import { StyleSheet } from 'react-native';
 
-const mainColor = '#42DEE1';
-const secondaryColor = '#6DECB9';
+const mainColor = '#3EC1D3';
+const secondaryColor = '#ADE498';
 
 export default StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#28B5B5',
+        backgroundColor: mainColor,
         alignItems: 'center',
         justifyContent: 'center'
       },
-      button: {
-        backgroundColor: '#8FD9A8',
-        width: '90%',
-        height: 80,
-        marginTop: 21,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 20,
-        shadowColor: 'rgba(0, 0, 0, 0.3)',
-        shadowOpacity: 0.8,
-        elevation: 6,
-        shadowRadius: 15 ,
-        shadowOffset : { width: 0, height: 13},
+    button: {
+      backgroundColor: secondaryColor,
+      width: '90%',
+      height: 80,
+      marginTop: 21,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 20,
+    },
+    buttonText: {
+      color: 'black',
+      opacity: 0.3,
+      fontSize: 22,
+      fontWeight: 'bold',
     },
     textInput: {
       backgroundColor: 'white',
@@ -32,6 +33,20 @@ export default StyleSheet.create({
       textAlign: 'center',
       fontSize: 24,
       fontWeight: 'bold',
-      marginTop: 40
-    }
+      marginTop: 40,
+      outlineColor: "grey",
+      color: '#545454',
+      outlineStyle: "solid",
+      outlineWidth: 4,
+    },
+    title: {
+      fontWeight: 'bold',
+      fontSize: 40,
+      color: 'white',
+    },
+    spinner: {
+      fontWeight: 'bold',
+      fontSize: 40,
+      color: 'white',
+    },
 });

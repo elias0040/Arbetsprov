@@ -9,9 +9,14 @@ import styles from '../Style';
 export default function Home({navigation}){
     return(
         <View style={styles.container}>
-            <Text>Home</Text>
+            <Text style={styles.title}>CityPop</Text>
+
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Search')}>
-                <Text>Search by city</Text>
+                <Text style={styles.buttonText}>Search by city</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Search')}>
+                <Text style={styles.buttonText}>Search by country</Text>
             </TouchableOpacity>
         </View>
     );
