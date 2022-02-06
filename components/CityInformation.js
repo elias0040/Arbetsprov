@@ -4,7 +4,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import React, {useState, useEffect} from 'react';
-import { PulseLoader } from 'react-spinners';
 import axios from 'axios';
 
 
@@ -15,23 +14,27 @@ export default function CityInformation({route, navigation}){
     const {input} = route.params; //Grab user input sent through navigation parameters
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState(null);
+    const [error, setError] = useState(false);
 
     const fetchCityData = async () => {
         //Initalize URL that data will be fetched from
 
-        var api_url = new URL('http://api.geonames.org/searchJSON?q=empty&maxRows=1&username=weknowit'); 
-        api_url.searchParams.set('q', input); //Set query parameter to user input from previous screen
+        //var api_url = new URL('http://api.geonames.org/searchJSON?q=empty&maxRows=1&username=weknowit'); 
+        //api_url.searchParams.set('q', input); //Set query parameter to user input from previous screen
+        const api_url = 'http://api.geonames.org/searchJSON?q=' + input + '&maxRows=1&username=weknowit';
 
-        try{
-            await axios
-                .get(api_url)
-                .then(res => {
-                    if(res.data.totalResultsCount > 0) setData(res.data.geonames[0]);
-                    setLoading(false);
-                })
-        }catch(error){
-            console.log(error);
-        }
+        await axios
+            .get(api_url)
+            .then(res => {
+                if(res.data.totalResultsCount > 0) setData(res.data.geonames[0]);
+                setLoading(false);
+            })
+            .catch(error => {
+                console.log(error);
+                setLoading(false);
+                setError(error);
+            })
+        
     }
 
     useEffect(() => {
@@ -40,7 +43,7 @@ export default function CityInformation({route, navigation}){
 
     return(
         <View style={styles.container}>
-              {loading ?  <PulseLoader color={'#ADE498'}/> : //If loading is true display loading indicator
+              {loading ?  <Text>Loading...</Text> : //If loading is true display loading indicator
                 (data === null) ? NoResultsFound() : ResultsFound(data) //Else display results if found
               }
            

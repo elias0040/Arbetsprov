@@ -11,7 +11,7 @@ export default StyleSheet.create({
         justifyContent: 'center'
       },
     button: {
-      backgroundColor: secondaryColor,
+      backgroundColor: 'black',
       width: '90%',
       height: 80,
       marginTop: 21,
@@ -20,8 +20,7 @@ export default StyleSheet.create({
       borderRadius: 20,
     },
     buttonText: {
-      color: 'black',
-      opacity: 0.3,
+      color: 'white',
       fontSize: 22,
       fontWeight: 'bold',
     },
@@ -34,10 +33,7 @@ export default StyleSheet.create({
       fontSize: 24,
       fontWeight: 'bold',
       marginTop: 40,
-      outlineColor: "grey",
       color: '#545454',
-      outlineStyle: "solid",
-      outlineWidth: 4,
     },
     title: {
       fontWeight: 'bold',
@@ -52,5 +48,13 @@ export default StyleSheet.create({
       fontWeight: 'bold',
       fontSize: 40,
       color: 'white',
+    },
+    listEntry: {
+      backgroundColor: 'black',
+      alignItems: 'flex-start',
+      justifyContent: 'center',
+      marginBottom: 15,
+      height: 100
+      
     },
 });
