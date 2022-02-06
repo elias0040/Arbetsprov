@@ -44,6 +44,10 @@ export default StyleSheet.create({
       fontSize: 40,
       color: 'white',
     },
+    subtitle: {
+      fontSize: 30,
+      color: 'grey',
+    },
     spinner: {
       fontWeight: 'bold',
       fontSize: 40,
