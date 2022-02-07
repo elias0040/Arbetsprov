@@ -53,6 +53,8 @@ export default StyleSheet.create({
       backgroundColor: 'black',
       alignItems: 'flex-start',
       justifyContent: 'center',
+      borderRadius: 30,
+      padding: 20,
       marginBottom: 15,
       height: 100
       

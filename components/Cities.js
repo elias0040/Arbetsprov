@@ -46,9 +46,9 @@ export default function Cities({route, navigation}){
 
 function cityList(data, navigation){
     return(
-        <View style={{width: '100%'}}>
+        <View style={[styles.container, {width: '100%'}]}>
             <FlatList 
-                style={{width: '100%'}}
+                style={{width: '90%'}}
                 data={data}
                 renderItem={({item}) => (
                     <View>
