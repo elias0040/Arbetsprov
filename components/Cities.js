@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import {StyleSheet, Text, View, TouchableOpacity, Touchable, FlatList } from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Touchable, FlatList, ActivityIndicator } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -23,7 +23,7 @@ export default function Cities({route, navigation}){
         
         const countryCode = getCode(input); //Convert country name to ISO-3166 country code, to be used within API search parameters
         //Initalize URL that data will be fetched from
-        const api_url = 'http://api.geonames.org/searchJSON?country=' + countryCode + '&orderby=population&featureClass=P&username=weknowit'
+        const api_url = 'http://api.geonames.org/searchJSON?country=' + countryCode + '&orderby=population&featureClass=P&featureCode=PPL&featureCode=PPLA&featureCode=PPLA2&featureCode=PPLA3&featureCode=PPLA4&featureCode=PPLC&maxRows=1000&username=weknowit'
 
         await axios
             .get(api_url)
@@ -45,26 +45,25 @@ export default function Cities({route, navigation}){
     return(
         <LinearGradient colors={['#4da7ac', '#0097ff']} style={styles.container}>
             <Text style={styles.title}>{countryName}</Text>
-            {loading ? <Text>Loading...</Text> : cityList(data, navigation)}
+            {loading ? <ActivityIndicator size='large' color='white'/> : cityList(data, navigation)}
         </LinearGradient>
     );
 }
 
 function cityList(data, navigation){
     return(
-        <View style={[styles.container, {width: '100%',}]}>
+        <View style={[styles.container, {width: '100%'}]}>
             <FlatList 
-                style={{width: '90%', height: 100}}
+                style={{width: '90%'}}
                 data={data}
+                keyExtractor={(item, index) => index.toString()}
                 renderItem={({item}) => (
-                    <View>
-                        <TouchableOpacity style={styles.listEntry} onPress={() => navigation.navigate('CityInformation', {input: item.name})}>
+                        <TouchableOpacity style={styles.listEntry} onPress={() => navigation.navigate('CityInformation', {cityData: item})}>
+                            <Text style={styles.listLabel}> # {(data.indexOf(item) + 1)}</Text>
                             <Text style={styles.buttonText}>{item.name}</Text>
                         </TouchableOpacity>
-                    </View>
-
                 )}
-                keyExtractor={(item, index) => index.toString()}
+                
             />
         </View>
     );

@@ -9,9 +9,9 @@ export default StyleSheet.create({
         backgroundColor: 'transparent',
         alignItems: 'center',
         justifyContent: 'center'
-      },
+    },
     button: {
-      backgroundColor: 'black',
+      backgroundColor: '#0d0128',
       width: '90%',
       height: 80,
       marginTop: 21,
@@ -22,7 +22,6 @@ export default StyleSheet.create({
     buttonText: {
       color: 'white',
       fontSize: 22,
-      fontWeight: 'bold',
     },
     textInput: {
       backgroundColor: 'white',
@@ -39,7 +38,6 @@ export default StyleSheet.create({
       fontWeight: 'bold',
       fontSize: 40,
       color: 'white',
-      marginBottom: 20,
     },
     subtitle: {
       fontSize: 25,
@@ -51,7 +49,8 @@ export default StyleSheet.create({
       color: 'white',
     },
     listEntry: {
-      backgroundColor: 'black',
+      backgroundColor: '#0d0128',
+      flex: 1,
       alignItems: 'flex-start',
       justifyContent: 'center',
       borderRadius: 30,
@@ -60,11 +59,17 @@ export default StyleSheet.create({
       height: 100
       
     },
+    listLabel: {
+      color: 'grey',
+      fontSize: 15,
+      fontWeight: '200',
+      marginBottom: 30,
+    },
     infoContainer: {
-      backgroundColor: 'black',
-      width: '70%',
-      borderRadius: 30,
+      backgroundColor: '#0d0128',
+      width: '100%',
+      borderRadius: 0,
       padding: 30,
       alignItems: 'center'
-    }
+    },
 });

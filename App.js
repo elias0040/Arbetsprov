@@ -12,6 +12,7 @@ import CityInformation from './components/CityInformation';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerTransparent: true, animationEnabled: false}}>

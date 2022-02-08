@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import {StyleSheet, Text, View, TouchableOpacity, Touchable, Animated } from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Touchable, Animated, ActivityIndicator} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -12,14 +12,14 @@ import styles from '../Style';
 import infoLog from 'react-native/Libraries/Utilities/infoLog';
 
 export default function CityInformation({route, navigation}){
-    const {input} = route.params; //Grab user input sent through navigation parameters
+    const {input, cityData} = route.params; //Grab user input sent through navigation parameters
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState(null);
     const [error, setError] = useState(false);
 
     const fetchCityData = async () => {
         //Initalize URL that data will be fetched from
-        const api_url = 'http://api.geonames.org/searchJSON?q=' + input + '&maxRows=1&username=weknowit';
+        const api_url = 'http://api.geonames.org/searchJSON?q=' + input + '&orderby=population&featureClass=P&featureCode=PPL&featureCode=PPLA&featureCode=PPLA2&featureCode=PPLA3&featureCode=PPLA4&featureCode=PPLC&maxRows=1&username=weknowit';
 
         await axios
             .get(api_url)
@@ -35,18 +35,23 @@ export default function CityInformation({route, navigation}){
         
     }
 
+
     useEffect(() => {
-        fetchCityData();
+        if(cityData === null){
+            fetchCityData();
+        }else{
+            setData(cityData);
+            setLoading(false);
+        }
+
     }, []);
+
 
     return(
         <LinearGradient colors={['#4da7ac', '#0097ff']} style={styles.container}>
-              {loading ?  <Text>Loading...</Text> : //If loading is true display loading indicator
-                (data === null) ? NoResultsFound() : <View style={[styles.container]}>{ResultsFound(data)}</View> //Else display results if found
-                
-      
+              {loading ?  <ActivityIndicator size='large' color='white'/> : //If loading is true display loading indicator
+                (data === null) ? NoResultsFound() : <View style={[styles.container, {width: '100%'}]}>{ResultsFound(data)}</View> //Else display results if found
               }
-           
         </LinearGradient>
     );
 }
@@ -55,7 +60,7 @@ export default function CityInformation({route, navigation}){
 function ResultsFound(data){
 
     return(
-      <View style={styles.container}>
+      <View style={[styles.container, {width: '100%'}]}>
           <Text style={styles.title}>{data.name}, {data.countryCode}</Text> 
           <View style={styles.infoContainer}>
             <Text style={styles.subtitle}>Population:</Text>  
