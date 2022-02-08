@@ -14,12 +14,12 @@ const Stack = createNativeStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerShown: true}}>
+      <Stack.Navigator screenOptions={{headerTransparent: true, animationEnabled: false}}>
 
-        <Stack.Screen name='Home' component={Home} />
-        <Stack.Screen name='Search' component={Search} />
-        <Stack.Screen name='Cities' component={Cities} />
-        <Stack.Screen name='CityInformation' component={CityInformation} />
+        <Stack.Screen name='Home' component={Home} options={{animationEnabled: false}}/>
+        <Stack.Screen name='Search' component={Search} options={{animationEnabled: false}}/>
+        <Stack.Screen name='Cities' component={Cities} options={{animationEnabled: false}}/>
+        <Stack.Screen name='CityInformation' component={CityInformation} options={{animationEnabled: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,14 +1,15 @@
 import { StatusBar } from 'expo-status-bar';
-import {StyleSheet, Text, View, TouchableOpacity, Touchable } from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Touchable, Animated } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 import styles from '../Style';
+import infoLog from 'react-native/Libraries/Utilities/infoLog';
 
 export default function CityInformation({route, navigation}){
     const {input} = route.params; //Grab user input sent through navigation parameters
@@ -18,9 +19,6 @@ export default function CityInformation({route, navigation}){
 
     const fetchCityData = async () => {
         //Initalize URL that data will be fetched from
-
-        //var api_url = new URL('http://api.geonames.org/searchJSON?q=empty&maxRows=1&username=weknowit'); 
-        //api_url.searchParams.set('q', input); //Set query parameter to user input from previous screen
         const api_url = 'http://api.geonames.org/searchJSON?q=' + input + '&maxRows=1&username=weknowit';
 
         await axios
@@ -33,7 +31,7 @@ export default function CityInformation({route, navigation}){
                 console.log(error);
                 setLoading(false);
                 setError(error);
-            })
+            });
         
     }
 
@@ -42,22 +40,29 @@ export default function CityInformation({route, navigation}){
     }, []);
 
     return(
-        <View style={styles.container}>
+        <LinearGradient colors={['#4da7ac', '#0097ff']} style={styles.container}>
               {loading ?  <Text>Loading...</Text> : //If loading is true display loading indicator
-                (data === null) ? NoResultsFound() : ResultsFound(data) //Else display results if found
+                (data === null) ? NoResultsFound() : <View style={[styles.container]}>{ResultsFound(data)}</View> //Else display results if found
+                
+      
               }
            
-        </View>
+        </LinearGradient>
     );
 }
 
 //View to be displayed if results are found
 function ResultsFound(data){
+
     return(
       <View style={styles.container}>
-          <Text style={styles.subtitle}>{data.name}, {data.countryCode}</Text> 
-          <Text style={styles.subtitle}>Population:</Text>  
-          <Text style={styles.title}>{data.population}</Text>  
+          <Text style={styles.title}>{data.name}, {data.countryCode}</Text> 
+          <View style={styles.infoContainer}>
+            <Text style={styles.subtitle}>Population:</Text>  
+            <Text style={[styles.title, {color: '#3EC1D3'}]}>{data.population}</Text>  
+          </View>
+          
+
       </View>
     );
 }

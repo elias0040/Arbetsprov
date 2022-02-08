@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useState } from 'react';
 
 import styles from '../Style';
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 export default function Search({route, navigation}){
@@ -12,7 +13,7 @@ export default function Search({route, navigation}){
     const [data, setData] = useState({textInput: ''})
 
     return(
-        <View style={styles.container}>
+        <LinearGradient colors={['#4da7ac', '#0097ff']} style={styles.container}>
             {byCountry ? <Text style={styles.title}>Search by country</Text> : <Text style={styles.title}>Search by city</Text>}
             <TextInput 
                 style={styles.textInput} 
@@ -26,6 +27,6 @@ export default function Search({route, navigation}){
                     
                 <Text style={styles.buttonText}>O</Text>
             </TouchableOpacity>
-        </View>
+        </LinearGradient>
     );
 }

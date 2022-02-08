@@ -6,7 +6,7 @@ const secondaryColor = '#ADE498';
 export default StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: mainColor,
+        backgroundColor: 'transparent',
         alignItems: 'center',
         justifyContent: 'center'
       },
@@ -39,10 +39,11 @@ export default StyleSheet.create({
       fontWeight: 'bold',
       fontSize: 40,
       color: 'white',
+      marginBottom: 20,
     },
     subtitle: {
-      fontSize: 30,
-      color: 'grey',
+      fontSize: 25,
+      color: 'white',
     },
     spinner: {
       fontWeight: 'bold',
@@ -59,4 +60,11 @@ export default StyleSheet.create({
       height: 100
       
     },
+    infoContainer: {
+      backgroundColor: 'black',
+      width: '70%',
+      borderRadius: 30,
+      padding: 30,
+      alignItems: 'center'
+    }
 });
