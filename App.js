@@ -8,6 +8,7 @@ import Home from './components/Home';
 import Search from './components/Search';
 import Cities from './components/Cities';
 import CityInformation from './components/CityInformation';
+import { backgroundColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,7 +16,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator screenOptions={{headerTransparent: true, animationEnabled: false}}>
+      <Stack.Navigator>
 
         <Stack.Screen name='Home' component={Home} options={{animationEnabled: false}}/>
         <Stack.Screen name='Search' component={Search} options={{animationEnabled: false}}/>

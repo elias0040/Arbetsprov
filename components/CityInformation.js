@@ -19,7 +19,7 @@ export default function CityInformation({route, navigation}){
 
     const fetchCityData = async () => {
         //Initalize URL that data will be fetched from
-        const api_url = 'http://api.geonames.org/searchJSON?q=' + input + '&orderby=population&featureClass=P&featureCode=PPL&featureCode=PPLA&featureCode=PPLA2&featureCode=PPLA3&featureCode=PPLA4&featureCode=PPLC&maxRows=1&username=weknowit';
+        const api_url = 'http://api.geonames.org/searchJSON?name_equals=' + input + '&orderby=population&featureClass=P&featureCode=PPL&featureCode=PPLA&featureCode=PPLA2&featureCode=PPLA3&featureCode=PPLA4&featureCode=PPLC&maxRows=1&username=weknowit';
 
         await axios
             .get(api_url)
@@ -32,9 +32,7 @@ export default function CityInformation({route, navigation}){
                 setLoading(false);
                 setError(error);
             });
-        
     }
-
 
     useEffect(() => {
         if(cityData === null){
@@ -45,7 +43,6 @@ export default function CityInformation({route, navigation}){
         }
 
     }, []);
-
 
     return(
         <LinearGradient colors={['#4da7ac', '#0097ff']} style={styles.container}>
@@ -62,10 +59,10 @@ function ResultsFound(data){
     return(
       <View style={[styles.container, {width: '100%'}]}>
           <Text style={styles.title}>{data.name}, {data.countryCode}</Text> 
-          <View style={styles.infoContainer}>
-            <Text style={styles.subtitle}>Population:</Text>  
-            <Text style={[styles.title, {color: '#3EC1D3'}]}>{data.population}</Text>  
-          </View>
+          <LinearGradient colors={['white', '#cbcbcb']} style={styles.infoContainer}>
+            <Text style={[styles.subtitle, {color: 'grey'}]}>Population:</Text>  
+            <Text style={{color: '#3EC1D3', fontSize: 60,}}>{data.population}</Text>  
+          </LinearGradient>
           
 
       </View>

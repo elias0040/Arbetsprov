@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import {StyleSheet, Text, View, TouchableOpacity, Touchable, FlatList, ActivityIndicator } from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Touchable, FlatList, ActivityIndicator, ImageBackground } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -44,7 +44,10 @@ export default function Cities({route, navigation}){
 
     return(
         <LinearGradient colors={['#4da7ac', '#0097ff']} style={styles.container}>
-            <Text style={styles.title}>{countryName}</Text>
+            <View style={styles.titleContainer}>
+                <Text style={styles.title}>{countryName}</Text>
+            </View>
+
             {loading ? <ActivityIndicator size='large' color='white'/> : cityList(data, navigation)}
         </LinearGradient>
     );
@@ -52,15 +55,22 @@ export default function Cities({route, navigation}){
 
 function cityList(data, navigation){
     return(
-        <View style={[styles.container, {width: '100%'}]}>
+        <View style={styles.listContainer}>
             <FlatList 
-                style={{width: '90%'}}
+                style={{width: '100%'}}
+                horizontal={false}
+                showsVerticalScrollIndicator={false}
                 data={data}
                 keyExtractor={(item, index) => index.toString()}
                 renderItem={({item}) => (
-                        <TouchableOpacity style={styles.listEntry} onPress={() => navigation.navigate('CityInformation', {cityData: item})}>
-                            <Text style={styles.listLabel}> # {(data.indexOf(item) + 1)}</Text>
-                            <Text style={styles.buttonText}>{item.name}</Text>
+                        <TouchableOpacity style={{width: '100%', height: 120, marginBottom: 10, borderRadius: 30}} onPress={() => navigation.navigate('CityInformation', {cityData: item})}>
+                            <ImageBackground source={{uri: 'https://random.imagecdn.app/500/10' + data.indexOf(item) % 9}} style={{width: '100%', height: '100%'}} imageStyle={{borderRadius: 30}}>
+                                <LinearGradient start={{x: 0.5, y: 0.5}} end={{x: 1, y: 0.9}} colors={['white', 'transparent']} style={styles.listEntry} >
+                                    <Text style={styles.listLabel}> # {(data.indexOf(item) + 1)}</Text>
+                                    <Text style={styles.buttonText}>{item.name}</Text>
+                                </LinearGradient>
+                            </ImageBackground>
+
                         </TouchableOpacity>
                 )}
                 

@@ -10,8 +10,27 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    titleContainer: {
+      position: 'absolute',
+      height: 100,
+      width: '100%',
+      top: '10%',
+      alignItems: 'center',
+    },
+    listContainer: {
+      position: 'absolute',
+      bottom: 0,
+      overflow: 'hidden',
+      borderTopLeftRadius: 30,
+      borderTopRightRadius: 30,
+      height: '80%',
+      width: '90%',
+      backgroundColor: 'transparent',
+      alignItems: 'flex-end',
+      justifyContent: 'center'
+  },
     button: {
-      backgroundColor: '#0d0128',
+      backgroundColor: 'white',
       width: '90%',
       height: 80,
       marginTop: 21,
@@ -20,7 +39,8 @@ export default StyleSheet.create({
       borderRadius: 20,
     },
     buttonText: {
-      color: 'white',
+      fontWeight: '100',
+      color: 'black',
       fontSize: 22,
     },
     textInput: {
@@ -38,6 +58,7 @@ export default StyleSheet.create({
       fontWeight: 'bold',
       fontSize: 40,
       color: 'white',
+      paddingBottom: 30,
     },
     subtitle: {
       fontSize: 25,
@@ -49,14 +70,13 @@ export default StyleSheet.create({
       color: 'white',
     },
     listEntry: {
-      backgroundColor: '#0d0128',
+      backgroundColor: 'transparent',
       flex: 1,
       alignItems: 'flex-start',
       justifyContent: 'center',
       borderRadius: 30,
       padding: 20,
-      marginBottom: 15,
-      height: 100
+      height: '100%'
       
     },
     listLabel: {
@@ -72,4 +92,9 @@ export default StyleSheet.create({
       padding: 30,
       alignItems: 'center'
     },
+    linearGradient:{
+      width: '100%',
+      height: '100%',
+      alignItems: 'center',
+    }
 });

@@ -22,7 +22,7 @@ export default function Search({route, navigation}){
                 onChangeText={(input) => setData({textInput: input})}
             />
             <TouchableOpacity 
-                style={[styles.button, {width: 100, height: 100, borderRadius: 80}]}
+                style={[styles.button, {backgroundColor: '#16C79A',width: 100, height: 100, borderRadius: 80}]}
                 onPress={() => navigation.navigate((byCountry ? 'Cities' : 'CityInformation'), {input: data.textInput, cityData: null})}>
                     
                 <Text style={styles.buttonText}>O</Text>
