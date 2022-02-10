@@ -1,35 +1,13 @@
-async function fetchCityData() {
-    //Initalize URL that data will be fetched from
+export function getCityBanner(population){
+    if(population < 20000) return require('./assets/pop1.png');
 
-    var api_url = new URL('http://api.geonames.org/searchJSON?q=empty&maxRows=1&username=weknowit'); 
-    api_url.searchParams.set('q', input); //Set query parameter to user input from previos screen
+    if(population < 100000) return require('./assets/pop2.png');
 
-    try{
-        await axios
-            .get(api_url)
-            .then(res => {
-                if(res.data.totalResultsCount > 0) setData(res.data.geonames[0]);
-                setLoading(false);
-            })
-    }catch(error){
-        console.log(error);
-    }
-}
+    if(population < 500000) return require('./assets/pop3.png');
 
-async function fetchCountryData(){
-        //Initalize URL that data will be fetched from
+    if(population < 1000000) return require('./assets/pop4.png');
 
-        var api_url = new URL('http://api.geonames.org/searchJSON?q=empty&username=weknowit'); 
-        api_url.searchParams.set('q', input); //Set query parameter to user input from previos screen
+    if(population < 5000000) return require('./assets/pop5.png');
 
-        try{
-            await axios
-                .get(api_url)
-                .then(res => {
-                    if(res.data.totalResultsCount > 0) setData(res.data.geonames[0]);
-                    setLoading(false);
-                })
-        }catch(error){
-            console.log(error);
-        }
+    if(population > 5000000) return require('./assets/pop6.png');
 }

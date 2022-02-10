@@ -1,15 +1,11 @@
-import { StatusBar } from 'expo-status-bar';
-import {StyleSheet, Text, View, TouchableOpacity, Touchable, TextInput} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {Text, TouchableOpacity, TextInput, Image} from 'react-native';
 import { useState } from 'react';
 
 import styles from '../Style';
 import { LinearGradient } from 'expo-linear-gradient';
 
-
 export default function Search({route, navigation}){
-    const {byCountry} = route.params;
+    const {byCountry} = route.params; //Alternative that user selected at homescreen, equals true or false
     const [data, setData] = useState({textInput: ''})
 
     return(
@@ -23,9 +19,9 @@ export default function Search({route, navigation}){
             />
             <TouchableOpacity 
                 style={[styles.button, {backgroundColor: '#16C79A',width: 100, height: 100, borderRadius: 80}]}
-                onPress={() => navigation.navigate((byCountry ? 'Cities' : 'CityInformation'), {input: data.textInput, cityData: null})}>
+                onPress={() => navigation.navigate((byCountry ? 'Cities' : 'City Information'), {input: data.textInput, cityData: null})}>
                     
-                <Text style={styles.buttonText}>O</Text>
+                <Image style={{width: '50%', height: '50%'}}source={require('../assets/search.png')}></Image>
             </TouchableOpacity>
         </LinearGradient>
     );

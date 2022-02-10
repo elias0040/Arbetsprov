@@ -1,5 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
@@ -8,20 +6,18 @@ import Home from './components/Home';
 import Search from './components/Search';
 import Cities from './components/Cities';
 import CityInformation from './components/CityInformation';
-import { backgroundColor } from 'react-native/Libraries/Components/View/ReactNativeStyleAttributes';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator(); //Initiate stack navigator
 
 export default function App() {
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
-
-        <Stack.Screen name='Home' component={Home} options={{animationEnabled: false}}/>
-        <Stack.Screen name='Search' component={Search} options={{animationEnabled: false}}/>
-        <Stack.Screen name='Cities' component={Cities} options={{animationEnabled: false}}/>
-        <Stack.Screen name='CityInformation' component={CityInformation} options={{animationEnabled: false}}/>
+        <Stack.Screen name='Home' component={Home}/>
+        <Stack.Screen name='Search' component={Search}/>
+        <Stack.Screen name='Cities' component={Cities}/>
+        <Stack.Screen name='City Information' component={CityInformation}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

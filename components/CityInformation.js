@@ -1,15 +1,10 @@
-import { StatusBar } from 'expo-status-bar';
-import {StyleSheet, Text, View, TouchableOpacity, Touchable, Animated, ActivityIndicator} from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
+import {Text, View, ActivityIndicator, ImageBackground} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import { LinearGradient } from 'expo-linear-gradient';
 
-
 import styles from '../Style';
-import infoLog from 'react-native/Libraries/Utilities/infoLog';
+import { getCityBanner } from '../Functions';
 
 export default function CityInformation({route, navigation}){
     const {input, cityData} = route.params; //Grab user input sent through navigation parameters
@@ -55,15 +50,23 @@ export default function CityInformation({route, navigation}){
 
 //View to be displayed if results are found
 function ResultsFound(data){
-
     return(
       <View style={[styles.container, {width: '100%'}]}>
-          <Text style={styles.title}>{data.name}, {data.countryCode}</Text> 
-          <LinearGradient colors={['white', '#cbcbcb']} style={styles.infoContainer}>
-            <Text style={[styles.subtitle, {color: 'grey'}]}>Population:</Text>  
-            <Text style={{color: '#3EC1D3', fontSize: 60,}}>{data.population}</Text>  
+          <View style={styles.titleContainer}>
+            <Text style={styles.subtitle}> {data.countryName} </Text>
+            <Text style={styles.title}> {data.name} </Text> 
+          </View>
+
+          <LinearGradient colors={['white', '#e8e8e8']} start={{x : 0.8, y: 0.8}} end={{x: 1, y: 1}} style={styles.infoContainer}>
+            <Text style={[styles.subtitle, {color: 'grey'}]}> Population: </Text>  
+            <Text style={{color: '#3EC1D3', fontSize: 60,}}> {data.population} </Text>  
+
+            <ImageBackground source={getCityBanner(data.population)} style={{width: '100%', height: 120, position: 'absolute', bottom: 0}}>
+                <LinearGradient start={{x: 0.5, y: 1}} end={{x: 0.9, y: 0.2}} colors={['white', 'transparent']} style={{width: '100%', height: '100%'}}/>
+            </ImageBackground>
           </LinearGradient>
-          
+
+            
 
       </View>
     );

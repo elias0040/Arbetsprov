@@ -86,10 +86,13 @@ export default StyleSheet.create({
       marginBottom: 30,
     },
     infoContainer: {
+      position: 'absolute',
+      bottom: 0,
+      height: '60%',
       backgroundColor: '#0d0128',
       width: '100%',
       borderRadius: 0,
-      padding: 30,
+      paddingTop: 30,
       alignItems: 'center'
     },
     linearGradient:{
