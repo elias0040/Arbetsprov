@@ -21,3 +21,10 @@ Once application is initiated, open up Expo Go on your mobile device and scan th
 ### Relevant documentation
 
 Documentation for geonames search API: http://www.geonames.org/export/geonames-search.html
+Relevant parameters for this project:
+
+name_equals - used for finding a location with specific name (city or country)
+
+fCode - Feature code, specifies which type of data should be fetched
+
+maxRows - Maximum number of objects to be fetched
