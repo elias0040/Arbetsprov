@@ -6,7 +6,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import styles from '../Style';
 
-import { getCityBanner } from '../Functions';
+import ListEntry from '../components/listEntry';
 
 export default function Cities({route, navigation}){
     const [loading, setLoading] = useState(true);
@@ -25,38 +25,37 @@ export default function Cities({route, navigation}){
      * Function is declared here instead of in an external file since it makes changing state less complicated
      */
     const fetchCountryData = async () => {
-
         var countryCode;
         var api_url = 'http://api.geonames.org/searchJSON?name_equals=' + input + '&featureCode=PCLI&username=weknowit&maxRows=1';
 
         //Grab country code depending on user input
         await axios
-        .get(api_url)
-        .then(res => {
-            //Only change data state if API call yields any result
-            if(res.data.totalResultsCount > 0) countryCode = res.data.geonames[0].countryCode; 
-            
-            //Iniatite next API URL with fetched country code
-            api_url = 'http://api.geonames.org/searchJSON?country=' + countryCode + '&orderby=population&featureClass=P&featureCode=PPL&featureCode=PPLA&featureCode=PPLA2&featureCode=PPLA3&featureCode=PPLA4&featureCode=PPLC&maxRows=1000&username=weknowit';
-        })
-        .catch(error => {
-            console.log(error);
-            setError(error);
-            setLoading(false);
-        });
+            .get(api_url)
+            .then(res => {
+                //Only change data state if API call yields any result
+                if(res.data.totalResultsCount > 0) countryCode = res.data.geonames[0].countryCode; 
+                
+                //Iniatite next API URL with fetched country code
+                api_url = 'http://api.geonames.org/searchJSON?country=' + countryCode + '&orderby=population&featureClass=P&featureCode=PPL&featureCode=PPLA&featureCode=PPLA2&featureCode=PPLA3&featureCode=PPLA4&featureCode=PPLC&maxRows=1000&username=weknowit';
+            })
+            .catch(error => {
+                console.log(error);
+                setError(error);
+                setLoading(false);
+            });
  
         await axios
-        .get(api_url)
-        .then(res => {
-            //Only change data state if API call yields any results
-            if(res.data.totalResultsCount > 0) setData(res.data.geonames); 
-            setLoading(false);
-        })
-        .catch(error => {
-            console.log(error);
-            setError(error);
-            setLoading(false);
-        });
+            .get(api_url)
+            .then(res => {
+                //Only change data state if API call yields any results
+                if(res.data.totalResultsCount > 0) setData(res.data.geonames); 
+                setLoading(false);
+            })
+            .catch(error => {
+                console.log(error);
+                setError(error);
+                setLoading(false);
+            });
     }
 
     useEffect(() => {
@@ -70,16 +69,9 @@ export default function Cities({route, navigation}){
             </View>
 
             {loading ? <ActivityIndicator size='large' color='white'/> : //Display loading indicator while fetching data
-                (data != null) ? cityList(data, navigation) : NoResultsFound() //Display city list if results were found, else notify the user.
+                (data != null) ? cityList(data, navigation) : <Error title={'Country not found'}/> //Display city list if results were found, else notify the user.
                 } 
         </LinearGradient>
-    );
-}
-
-//View to be displayed if user input does not yield any results
-function NoResultsFound(){
-    return(
-        <Text style={styles.title}>Country not found</Text>
     );
 }
 
@@ -93,23 +85,10 @@ function cityList(data, navigation){
                 showsVerticalScrollIndicator={false}
                 data={data}
                 keyExtractor={(item, index) => index.toString()}
-                renderItem={({item}) => listEntry(item, data, navigation)}
+                renderItem={({item}) => (<ListEntry item={item} data={data} onPressFunction={() => navigation.navigate('City Information', {cityData: item})}/>)}
             />
         </View>
     );
 }
 
-//List entry, to be rendered within flat list
-function listEntry(item, data, navigation){
-    return(
-        <TouchableOpacity style={{width: '100%', height: 120, marginBottom: 10, borderRadius: 30}} onPress={() => navigation.navigate('City Information', {cityData: item})}>
-            <ImageBackground source={getCityBanner(item.population)} style={{width: '100%', height: '100%'}} imageStyle={{borderRadius: 30}}>
-                <LinearGradient start={{x: 0.6, y: 0.5}} end={{x: 0.9, y: 0.9}} colors={['white', 'transparent']} style={styles.listEntry} >
-                    <Text style={styles.listLabel}> # {(data.indexOf(item) + 1)}</Text>
-                    <Text style={styles.buttonText}>{item.name}</Text>
-                    
-                </LinearGradient>
-            </ImageBackground>
-     </TouchableOpacity>
-    );
-}
+

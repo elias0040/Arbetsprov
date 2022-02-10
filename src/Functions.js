@@ -1,3 +1,10 @@
+
+/** getCityBanner
+ * 
+ * @param {*} population Population for given city 
+ * @returns Address for banner depending on city population
+ */
+
 export function getCityBanner(population){
     if(population < 20000) return require('./assets/pop1.png');
 

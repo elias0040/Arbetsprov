@@ -5,6 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 import styles from '../Style';
 import { getCityBanner } from '../Functions';
+import Error from '../components/error';
 
 export default function CityInformation({route, navigation}){
     const {input, cityData} = route.params; //Grab user input sent through navigation parameters
@@ -14,6 +15,8 @@ export default function CityInformation({route, navigation}){
 
     /** fetchCityData
      * Function used in order to fetch the most relevant city based on user input.
+     * 
+     * Function is declared here instead of in an external file since it makes changing state less complicated
      */
 
     const fetchCityData = async () => {
@@ -23,7 +26,8 @@ export default function CityInformation({route, navigation}){
         await axios
             .get(api_url)
             .then(res => {
-                if(res.data.totalResultsCount > 0) setData(res.data.geonames[0]);
+                //Only change data state if API call yields any results
+                if(res.data.totalResultsCount > 0) setData(res.data.geonames[0]); 
                 setLoading(false);
             })
             .catch(error => {
@@ -46,7 +50,7 @@ export default function CityInformation({route, navigation}){
     return(
         <LinearGradient colors={['#4da7ac', '#0097ff']} style={styles.container}>
               {loading ?  <ActivityIndicator size='large' color='white'/> : //If loading is true display loading indicator
-                (data === null) ? NoResultsFound() : <View style={[styles.container, {width: '100%'}]}>{ResultsFound(data)}</View> //Else display results if found
+                (data === null) ? <Error title={'No city found'}/>: <View style={[styles.container, {width: '100%'}]}>{ResultsFound(data)}</View> //Else display results if found
               }
         </LinearGradient>
     );
@@ -73,9 +77,3 @@ function ResultsFound(data){
     );
 }
 
-//View to be displayed if results are not foond
-function NoResultsFound(){
-    return(
-        <Text style={styles.title}>No results found</Text>
-    );
-}

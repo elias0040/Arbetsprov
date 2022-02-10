@@ -2,10 +2,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 //Import screens
-import Home from './components/Home';
-import Search from './components/Search';
-import Cities from './components/Cities';
-import CityInformation from './components/CityInformation';
+import Home from './src/screens/Home';
+import Search from './src/screens/Search';
+import Cities from './src/screens/Cities';
+import CityInformation from './src/screens/CityInformation';
 
 const Stack = createNativeStackNavigator(); //Initiate stack navigator
 
