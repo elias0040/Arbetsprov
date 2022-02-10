@@ -7,6 +7,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import styles from '../Style';
 
 import ListEntry from '../components/listEntry';
+import Error from '../components/error';
 
 export default function Cities({route, navigation}){
     const [loading, setLoading] = useState(true);
@@ -25,7 +26,7 @@ export default function Cities({route, navigation}){
      * Function is declared here instead of in an external file since it makes changing state less complicated
      */
     const fetchCountryData = async () => {
-        var countryCode;
+        var countryCode = null;
         var api_url = 'http://api.geonames.org/searchJSON?name_equals=' + input + '&featureCode=PCLI&username=weknowit&maxRows=1';
 
         //Grab country code depending on user input
@@ -33,10 +34,15 @@ export default function Cities({route, navigation}){
             .get(api_url)
             .then(res => {
                 //Only change data state if API call yields any result
-                if(res.data.totalResultsCount > 0) countryCode = res.data.geonames[0].countryCode; 
+                if(res.data.totalResultsCount > 0){
+                    countryCode = res.data.geonames[0].countryCode; 
+                    api_url = 'http://api.geonames.org/searchJSON?country=' + countryCode + '&orderby=population&featureClass=P&featureCode=PPL&featureCode=PPLA&featureCode=PPLA2&featureCode=PPLA3&featureCode=PPLA4&featureCode=PPLC&maxRows=1000&username=weknowit';
+                }else{
+                    setLoading(false);
+                }
                 
                 //Iniatite next API URL with fetched country code
-                api_url = 'http://api.geonames.org/searchJSON?country=' + countryCode + '&orderby=population&featureClass=P&featureCode=PPL&featureCode=PPLA&featureCode=PPLA2&featureCode=PPLA3&featureCode=PPLA4&featureCode=PPLC&maxRows=1000&username=weknowit';
+                
             })
             .catch(error => {
                 console.log(error);
@@ -44,7 +50,8 @@ export default function Cities({route, navigation}){
                 setLoading(false);
             });
  
-        await axios
+        if(countryCode != null){
+            await axios
             .get(api_url)
             .then(res => {
                 //Only change data state if API call yields any results
@@ -56,6 +63,8 @@ export default function Cities({route, navigation}){
                 setError(error);
                 setLoading(false);
             });
+        }
+
     }
 
     useEffect(() => {
