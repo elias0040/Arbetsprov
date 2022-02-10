@@ -15,12 +15,14 @@ export default function Cities({route, navigation}){
 
     const {input} = route.params; //Grab user input sent through navigation parameters
 
-    const countryName = (input.charAt(0).toUpperCase()) + input.slice(1).toLowerCase();
+    const countryName = (input.charAt(0).toUpperCase()) + input.slice(1).toLowerCase(); //Properly format user input
 
     /** fetchCountryData
      * Function used to fetch list of cities within a country, ordered by population. 
      * First API call is used in order to grab the correct country code depending on user input, which is later used in 
      * the second API call in order to grab cities within  the country. The view will display an activity indicator while fetching the data. 
+     * 
+     * Function is declared here instead of in an external file since it makes changing state less complicated
      */
     const fetchCountryData = async () => {
 
@@ -31,7 +33,10 @@ export default function Cities({route, navigation}){
         await axios
         .get(api_url)
         .then(res => {
-            if(res.data.totalResultsCount > 0) countryCode = res.data.geonames[0].countryCode;
+            //Only change data state if API call yields any result
+            if(res.data.totalResultsCount > 0) countryCode = res.data.geonames[0].countryCode; 
+            
+            //Iniatite next API URL with fetched country code
             api_url = 'http://api.geonames.org/searchJSON?country=' + countryCode + '&orderby=population&featureClass=P&featureCode=PPL&featureCode=PPLA&featureCode=PPLA2&featureCode=PPLA3&featureCode=PPLA4&featureCode=PPLC&maxRows=1000&username=weknowit';
         })
         .catch(error => {
@@ -40,11 +45,11 @@ export default function Cities({route, navigation}){
             setLoading(false);
         });
  
-        
         await axios
         .get(api_url)
         .then(res => {
-            if(res.data.totalResultsCount > 0) setData(res.data.geonames);
+            //Only change data state if API call yields any results
+            if(res.data.totalResultsCount > 0) setData(res.data.geonames); 
             setLoading(false);
         })
         .catch(error => {
@@ -71,6 +76,13 @@ export default function Cities({route, navigation}){
     );
 }
 
+//View to be displayed if user input does not yield any results
+function NoResultsFound(){
+    return(
+        <Text style={styles.title}>Country not found</Text>
+    );
+}
+
 //View to be displayed if results were found
 function cityList(data, navigation){
     return(
@@ -84,13 +96,6 @@ function cityList(data, navigation){
                 renderItem={({item}) => listEntry(item, data, navigation)}
             />
         </View>
-    );
-}
-
-//View to be displayed if user input does not yield any results
-function NoResultsFound(){
-    return(
-        <Text style={styles.title}>Country not found</Text>
     );
 }
 

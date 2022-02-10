@@ -16,7 +16,6 @@ export default function Home({navigation}){
 
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Search', {byCountry: true})}>
                 <Text style={styles.buttonText}>Search by country</Text>
-                
             </TouchableOpacity>
         </LinearGradient>
     );

@@ -12,6 +12,10 @@ export default function CityInformation({route, navigation}){
     const [data, setData] = useState(null);
     const [error, setError] = useState(false);
 
+    /** fetchCityData
+     * Function used in order to fetch the most relevant city based on user input.
+     */
+
     const fetchCityData = async () => {
         //Initalize URL that data will be fetched from
         const api_url = 'http://api.geonames.org/searchJSON?name_equals=' + input + '&orderby=population&featureClass=P&featureCode=PPL&featureCode=PPLA&featureCode=PPLA2&featureCode=PPLA3&featureCode=PPLA4&featureCode=PPLC&maxRows=1&username=weknowit';
@@ -65,9 +69,6 @@ function ResultsFound(data){
                 <LinearGradient start={{x: 0.5, y: 1}} end={{x: 0.9, y: 0.2}} colors={['white', 'transparent']} style={{width: '100%', height: '100%'}}/>
             </ImageBackground>
           </LinearGradient>
-
-            
-
       </View>
     );
 }
